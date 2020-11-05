@@ -1,0 +1,196 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Lato',sans-serif;
+}
+.all-colors {
+    display: flex;
+}
+.color{
+    flex: 1;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+}
+.color h2{
+    flex-basis: 30%;
+}
+button{
+    border: none;
+    background: transparent;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+button i{
+    font-size: 1.2rem !important;
+}
+button:focus{
+    outline: none;
+}
+i{
+    pointer-events: none;
+}
+
+.sliders{
+    transform: translateY(100px);
+    transition: 0.3s all ease;
+    opacity: 0;
+    pointer-events: none;
+}
+.sliders.active{
+    pointer-events: all;
+    opacity: 1;
+    transform: translateY(0);
+}
+.other-options{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 1rem 0;
+}
+.other-options button{
+    background: rgb(58, 56, 56);
+    color: #ffffff;
+    padding:0.4rem 1rem;
+    border-radius: 0.5rem;
+}
+.sliders{
+    padding: 1rem;
+    position: relative;
+    background-color: white;
+    border-top-left-radius: 1rem;
+    width: 90%;
+    text-align: center;
+}
+.close-slider,.close-save,.close-library{
+
+    position: absolute;
+    top: 0;
+    right: 0px;
+    padding: 0.5rem;
+    background: #000;
+    color: #fff;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+}
+/* Sliders */
+input[type="range"]{
+    appearance: none;
+    margin: 1rem 0;
+    border-radius: 1rem;
+}
+input[type="range"]:focus{
+    outline: none;
+}
+h4{
+    color: #000;
+}
+.copy-container,.save-container,.library-container{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0,0.45);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 22;
+    transition: 0.5s all ease;
+}
+.copy-container .copy-popup,.save-popup,.library-pop{
+    background: #ffffff;
+    height: 30vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 1rem;
+    opacity: 0;
+    transform: translateY(2rem);
+    transition: 0.5s all ease;
+    z-index: 44;
+    position: relative;
+    max-width: 30%;
+    pointer-events: none;
+}
+.copy-container.active,.save-container.active,.library-container.active{
+    opacity: 1;
+    z-index: 33;
+}
+.copy-container .copy-popup.active,.save-container .save-popup.active,.library-pop.active{
+    transform: translateY(0rem);
+    opacity: 1;
+    pointer-events: all;
+}
+#pal-name{
+    padding: 6px;
+}
+.save-submit{
+    background: rgb(39, 39, 39);
+    color: #ffffff;
+    border-radius: 0.5rem;
+    padding:0.7rem 1rem;
+}
+.library-colors{
+    height: 40px;
+    width: 30px;
+    cursor: pointer;
+}
+.library-pop{
+    max-width: 30%;
+    height: 40vh;
+}
+
+
+.libraries{
+    width: 100%;
+    overflow: auto;
+}
+.libraries .select-colors{
+    width: 50px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    color: #fff;
+    padding: 0;
+}
+.library-pop h4{
+   margin: 30px 0;
+}
+.d-flex{
+    display: flex;
+    justify-content: center;
+}
+.libraries span{
+    flex: 1;
+    text-align: center;
+}
+.libraries .img-preview{
+    flex: 2;
+}
+.overall-lib{
+    margin-bottom: 20px;
+}
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
