@@ -384,4 +384,4 @@ localStore.library.addEventListener("click", function (e) {
 });
 localStore.showDynamicLibrary();
 // Clearing local storage
-localStore.clearBtn.addEventListener("click", () => localStorage.clear());
+// localStore.clearBtn.addEventListener("click", () => localStorage.clear());
