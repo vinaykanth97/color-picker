@@ -226,6 +226,7 @@ class StoreinLocal {
     this.closeLibrarypop = document.querySelector(".close-library");
     this.library = document.querySelector(".libraries");
     this.previewBtn = document.querySelectorAll(".select-colors");
+    this.searchBar = document.querySelector(".search-colors");
   }
   // Open popup to save Palletes
   savePalettes() {
@@ -281,6 +282,10 @@ class StoreinLocal {
     let colorName = document.createElement("span");
     let colorList = document.createElement("div");
     let selectBtn = document.createElement("button");
+    let trashBtn = document.createElement("button");
+    trashBtn.innerHTML = `<i class="fa fa-trash"></i>`;
+    trashBtn.classList.add(`delete`, `${id}`);
+
     selectBtn.classList.add("select-colors", `${id}`);
     selectBtn.innerText = "select";
     paletteObj.colors.forEach((colors) => {
@@ -290,6 +295,7 @@ class StoreinLocal {
       colorList.appendChild(colorBlocks);
       colorList.appendChild(selectBtn);
       colorList.classList.add("d-flex", "img-preview");
+      colorList.appendChild(trashBtn);
     });
     colorName.innerText = paletteName;
     libraryDiv.appendChild(colorName);
@@ -320,6 +326,9 @@ class StoreinLocal {
         let colorName = document.createElement("span");
         let colorList = document.createElement("div");
         let selectBtn = document.createElement("button");
+        let trashBtn = document.createElement("button");
+        trashBtn.innerHTML = `<i class="fa fa-trash"></i>`;
+        trashBtn.classList.add(`delete`, `${localcolor.id}`);
         selectBtn.classList.add("select-colors", `${localcolor.id}`);
         selectBtn.innerText = "select";
         localcolor.colors.forEach((color) => {
@@ -329,6 +338,7 @@ class StoreinLocal {
           colorList.appendChild(colorBlocks);
           colorList.appendChild(selectBtn);
           colorList.classList.add("d-flex", "img-preview");
+          colorList.appendChild(trashBtn);
         });
         colorName.innerText = localcolor.name;
         libraryDiv.appendChild(colorName);
@@ -362,7 +372,42 @@ class StoreinLocal {
       });
     }
   }
+
+  // Search Libraries
+  searchLibrary(e) {
+    let lowerAlph = e.target.value.toLowerCase();
+    let searchOverall = this.library.querySelectorAll(".overall-lib span");
+    searchOverall.forEach((search) => {
+      if (search.innerText.toLowerCase().indexOf(lowerAlph) !== -1) {
+        search.parentElement.style.display = "flex";
+      } else {
+        search.parentElement.style.display = "none";
+      }
+    });
+  }
+  // Delete Libraries
+  deleteAction(e) {
+    if (e.target.classList.contains("delete")) {
+      let localColors;
+      if (localStorage.getItem("palette") === null) {
+        localColors = [];
+      } else {
+        localColors = JSON.parse(localStorage.getItem("palette"));
+      }
+      let targetedName =
+        e.target.parentElement.previousElementSibling.innerText;
+      let deletePreview = localColors.map((prev) => {
+        return prev.name;
+      });
+      localColors.splice(deletePreview.indexOf(targetedName), 1);
+      localStorage.setItem("palette", JSON.stringify(localColors));
+      document
+        .querySelectorAll(".overall-lib")
+        [deletePreview.indexOf(targetedName)].remove();
+    }
+  }
 }
+
 const localStore = new StoreinLocal();
 localStore.saveBtn.addEventListener("click", function () {
   localStore.savePalettes();
@@ -382,6 +427,13 @@ localStore.closeLibrarypop.addEventListener("click", function () {
 localStore.library.addEventListener("click", function (e) {
   localStore.selectColors(e);
 });
+localStore.searchBar.addEventListener("keyup", function (e) {
+  localStore.searchLibrary(e);
+});
+localStore.library.addEventListener("click", function (e) {
+  localStore.deleteAction(e);
+});
+
 localStore.showDynamicLibrary();
 // Clearing local storage
 // localStore.clearBtn.addEventListener("click", () => localStorage.clear());
