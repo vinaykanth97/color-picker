@@ -328,8 +328,8 @@ class StoreinLocal {
         let selectBtn = document.createElement("button");
         let trashBtn = document.createElement("button");
         trashBtn.innerHTML = `<i class="fa fa-trash"></i>`;
-        trashBtn.classList.add(`delete`, `${localcolor.id}`);
-        selectBtn.classList.add("select-colors", `${localcolor.id}`);
+        trashBtn.classList.add(`delete`, `${index}`);
+        selectBtn.classList.add("select-colors", `${index}`);
         selectBtn.innerText = "select";
         localcolor.colors.forEach((color) => {
           let colorBlocks = document.createElement("div");
@@ -396,6 +396,7 @@ class StoreinLocal {
       }
       let targetedName =
         e.target.parentElement.previousElementSibling.innerText;
+
       let deletePreview = localColors.map((prev) => {
         return prev.name;
       });
@@ -404,6 +405,13 @@ class StoreinLocal {
       document
         .querySelectorAll(".overall-lib")
         [deletePreview.indexOf(targetedName)].remove();
+
+      document.querySelectorAll(".delete").forEach((del, index) => {
+        del.className = `delete ${index}`;
+        document.querySelectorAll(".select-colors")[
+          index
+        ].className = `select-colors ${index}`;
+      });
     }
   }
 }
