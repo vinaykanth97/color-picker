@@ -109,6 +109,9 @@ colorProject.prototype.playSlider = function (e) {
     .set("hsl.s", saturation.value);
   bgColor.innerText = allColors.hex();
   this.colorDivs[getIndex].style.backgroundColor = allColors;
+  // console.log((initialColors[getIndex] = bgColor.innerText));
+  initialColors[getIndex] = bgColor.innerText;
+  console.log(initialColors);
   this.checkContrast(allColors, bgColor);
   this.updateBackground(allColors, hue, brightness, saturation);
 };
