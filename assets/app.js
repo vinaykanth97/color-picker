@@ -315,6 +315,7 @@ class StoreinLocal {
   closeLibrary() {
     this.libraryContainer.classList.remove("active");
     this.libraryContainer.children[0].classList.remove("active");
+    this.searchBar.value = "";
   }
 
   // Pulling from LocalStorage and displaying
@@ -360,6 +361,7 @@ class StoreinLocal {
         colors.style.backgroundColor = initialColors[index];
         let pickedColor = chroma(initialColors[index]);
         let sliders = colors.querySelectorAll(".sliders input[type=range]");
+        colors.querySelector("h2").innerText = initialColors[index];
 
         // Update input UI
         let actColor = chroma(pickedColor);
