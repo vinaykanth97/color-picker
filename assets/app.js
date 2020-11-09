@@ -111,7 +111,7 @@ colorProject.prototype.playSlider = function (e) {
   this.colorDivs[getIndex].style.backgroundColor = allColors;
   // console.log((initialColors[getIndex] = bgColor.innerText));
   initialColors[getIndex] = bgColor.innerText;
-  console.log(initialColors);
+  // console.log(initialColors);
   this.checkContrast(allColors, bgColor);
   this.updateBackground(allColors, hue, brightness, saturation);
 };
@@ -316,6 +316,11 @@ class StoreinLocal {
     this.libraryContainer.classList.remove("active");
     this.libraryContainer.children[0].classList.remove("active");
     this.searchBar.value = "";
+    let lib = document.querySelectorAll(".libraries .overall-lib");
+
+    lib.forEach((li, index) => {
+      li.style.display = "flex";
+    });
   }
 
   // Pulling from LocalStorage and displaying
