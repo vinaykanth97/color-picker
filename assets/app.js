@@ -108,10 +108,11 @@ colorProject.prototype.playSlider = function (e) {
     .set("hsl.l", brightness.value)
     .set("hsl.s", saturation.value);
   bgColor.innerText = allColors.hex();
+
+  // initialColors[getIndex] = allColors.hex();
+  // console.log(allColors.hex());
   this.colorDivs[getIndex].style.backgroundColor = allColors;
-  // console.log((initialColors[getIndex] = bgColor.innerText));
-  initialColors[getIndex] = bgColor.innerText;
-  // console.log(initialColors);
+
   this.checkContrast(allColors, bgColor);
   this.updateBackground(allColors, hue, brightness, saturation);
 };
@@ -255,7 +256,7 @@ class StoreinLocal {
     let paletteName = this.paletteInput.value;
     let paletteColors = initialColors;
     let id;
-    // console.log(JSON.parse(localStorage.getItem("palette")));
+
     let datas = JSON.parse(localStorage.getItem("palette"));
     if (datas) {
       id = datas.length;
@@ -291,9 +292,10 @@ class StoreinLocal {
 
     selectBtn.classList.add("select-colors", `${id}`);
     selectBtn.innerText = "select";
-    paletteObj.colors.forEach((colors) => {
+    paletteObj.colors.forEach((colors, i) => {
+      initialColors[i] = colors;
       let colorBlocks = document.createElement("div");
-      colorBlocks.style.backgroundColor = colors;
+      colorBlocks.style.backgroundColor = initialColors[i];
       colorBlocks.classList.add("library-colors");
       colorList.appendChild(colorBlocks);
       colorList.appendChild(selectBtn);
