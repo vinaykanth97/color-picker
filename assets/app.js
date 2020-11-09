@@ -293,9 +293,8 @@ class StoreinLocal {
     selectBtn.classList.add("select-colors", `${id}`);
     selectBtn.innerText = "select";
     paletteObj.colors.forEach((colors, i) => {
-      initialColors[i] = colors;
       let colorBlocks = document.createElement("div");
-      colorBlocks.style.backgroundColor = initialColors[i];
+      colorBlocks.style.backgroundColor = colors;
       colorBlocks.classList.add("library-colors");
       colorList.appendChild(colorBlocks);
       colorList.appendChild(selectBtn);
