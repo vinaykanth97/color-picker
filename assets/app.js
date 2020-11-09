@@ -30,8 +30,9 @@ colorProject.prototype.colorBox = function () {
     } else {
       initialColors.push(chroma(colors).hex());
     }
-    hexText.innerText = chroma(colors).hex();
-    divs.style.backgroundColor = hexText.innerText;
+
+    hexText.innerText = colors;
+    divs.style.backgroundColor = colors;
     this.checkContrast(hexText.innerText, hexText);
 
     // Set Sliders
@@ -107,12 +108,13 @@ colorProject.prototype.playSlider = function (e) {
     .set("hsl.h", hue.value)
     .set("hsl.l", brightness.value)
     .set("hsl.s", saturation.value);
+  // console.log(allColors);
   bgColor.innerText = allColors.hex();
 
   // initialColors[getIndex] = allColors.hex();
   // console.log(allColors.hex());
   this.colorDivs[getIndex].style.backgroundColor = allColors;
-
+  console.log(initialColors);
   this.checkContrast(allColors, bgColor);
   this.updateBackground(allColors, hue, brightness, saturation);
 };
@@ -213,8 +215,6 @@ colorPicker.closeSlider.forEach((slide, index) => {
   });
 });
 
-colorPicker.colorBox();
-
 // Localstorage Functions from here
 class StoreinLocal {
   constructor() {
@@ -224,7 +224,8 @@ class StoreinLocal {
     this.paletteInput = document.getElementById("pal-name");
     this.saveSubmit = document.querySelector(".save-submit");
     this.clearBtn = document.querySelector(".clear-btn");
-    this.colorArray = [];
+    this.colorArray;
+
     this.libraryBtn = document.querySelector(".library-btn");
     this.libraryContainer = document.querySelector(".library-container");
     this.closeLibrarypop = document.querySelector(".close-library");
@@ -254,7 +255,7 @@ class StoreinLocal {
   // Submitting input Values
   submitValuesToLocal() {
     let paletteName = this.paletteInput.value;
-    let paletteColors = initialColors;
+    this.colorArray = [];
     let id;
 
     let datas = JSON.parse(localStorage.getItem("palette"));
@@ -264,12 +265,14 @@ class StoreinLocal {
       id = this.colorArray.length;
     }
 
+    document.querySelectorAll(".color h2").forEach((currHex) => {
+      this.colorArray.push(currHex.innerText);
+    });
     let paletteObj = {
       id: id,
       name: paletteName,
-      colors: paletteColors,
+      colors: this.colorArray,
     };
-    this.colorArray.push(paletteObj);
 
     // Pushing to localStorage
     let localColors;
@@ -331,6 +334,7 @@ class StoreinLocal {
       localColors = [];
     } else {
       localColors = JSON.parse(localStorage.getItem("palette"));
+
       localColors.forEach((localcolor, index) => {
         let libraryDiv = document.createElement("div");
         let colorName = document.createElement("span");
@@ -452,7 +456,7 @@ localStore.searchBar.addEventListener("keyup", function (e) {
 localStore.library.addEventListener("click", function (e) {
   localStore.deleteAction(e);
 });
-
+colorPicker.colorBox();
 localStore.showDynamicLibrary();
 // Clearing local storage
 // localStore.clearBtn.addEventListener("click", () => localStorage.clear());
